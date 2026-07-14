@@ -1,0 +1,183 @@
+/* ===== RESET ===== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: #000000;
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    color: #ECE6DE;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== STORY CONTAINER ===== */
+#story {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+#text-container {
+    max-width: 520px;
+    width: 85%;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* ===== TEXT LINES ===== */
+.story-line {
+    font-size: clamp(22px, 5vw, 32px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: none;
+    margin-bottom: 0;
+    white-space: pre-wrap;
+}
+
+.story-line.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 2.4s cubic-bezier(0.22, 0.61, 0.36, 1),
+                transform 2.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.story-line.fade-out {
+    opacity: 0;
+    transition: opacity 2s cubic-bezier(0.55, 0.06, 0.68, 0.19);
+}
+
+/* ===== START OVERLAY ===== */
+#start-overlay {
+    position: fixed;
+    inset: 0;
+    background: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 1.5s ease;
+}
+
+#start-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#start-btn {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: #ECE6DE;
+    background: transparent;
+    border: 1px solid rgba(236, 230, 222, 0.25);
+    padding: 16px 48px;
+    border-radius: 100px;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    transition: all 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+    -webkit-tap-highlight-color: transparent;
+}
+
+#start-btn:hover {
+    border-color: rgba(236, 230, 222, 0.6);
+    background: rgba(236, 230, 222, 0.04);
+}
+
+#start-btn:active {
+    transform: scale(0.97);
+}
+
+/* ===== REPLAY OVERLAY ===== */
+#replay-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 3s ease;
+}
+
+#replay-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#replay-btn {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(236, 230, 222, 0.35);
+    background: transparent;
+    border: 1px solid rgba(236, 230, 222, 0.12);
+    padding: 14px 40px;
+    border-radius: 100px;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    transition: all 1.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+    -webkit-tap-highlight-color: transparent;
+}
+
+#replay-btn:hover {
+    color: rgba(236, 230, 222, 0.7);
+    border-color: rgba(236, 230, 222, 0.3);
+}
+
+#replay-btn:active {
+    transform: scale(0.97);
+}
+
+/* ===== SCREEN FADE ===== */
+#story.fade-to-black {
+    opacity: 0;
+    transition: opacity 3s ease;
+}
+
+/* ===== SAFARI FIXES ===== */
+@supports (-webkit-touch-callout: none) {
+    body {
+        height: -webkit-fill-available;
+    }
+    #story {
+        height: -webkit-fill-available;
+    }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+    .story-line.visible {
+        transition: opacity 0.5s ease;
+        transform: none;
+    }
+    #start-overlay.hidden {
+        transition: opacity 0.5s ease;
+    }
+    #replay-overlay.visible {
+        transition: opacity 0.5s ease;
+    }
+    #story.fade-to-black {
+        transition: opacity 0.5s ease;
+    }
+}
